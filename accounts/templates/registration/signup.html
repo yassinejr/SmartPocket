@@ -1,0 +1,52 @@
+{% extends 'registration/base_auth.html' %}
+{% load static %}
+
+{% block content %}
+</br></br>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="card-body">
+            <div class="card-title">
+                <h4> Register for free</h4>
+                <br>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{form.username.label}}
+                        {{form.username}}
+                    </div>
+                    <div class="invalid-feedback" style="display:none">
+                        <p></p>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        {{form.email.label}}
+                        {{form.email}}
+                    </div>
+                    <div class="invalid-email-feedback" style="display:none">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        {{form.password1.label}}
+                        {{form.password1}}
+                        <br>
+                        <small class="float-right py-3 showpasswordToggle" style="cursor: pointer;">Show</small>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        {{form.password2.label}}
+                        {{form.password2}}
+                        <br>
+                        <small class="float-right py-3 showpasswordToggle" style="cursor: pointer;">Show</small>
+                    </div>
+                    <br>
+                    <input type="submit" value="Register" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+{% endblock content %}

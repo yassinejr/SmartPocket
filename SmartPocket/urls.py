@@ -20,6 +20,10 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('expenses/', include('expenses.urls')),
-    path('authentication/', include('authentication.urls')),
+    path('', include('expenses.urls')),
+    # path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('accounts.urls'), name='accounts'),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += [
+    path('accounts/', include('django.contrib.auth.urls')),
+]
