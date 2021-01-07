@@ -1,0 +1,29 @@
+{% extends 'main_blog/base.html' %}
+
+{% block content %}
+
+</br></br>
+
+<div class="container mt-5">
+    <div class="row">
+
+        <div class="col-md-4">
+            {% if user.profile.profile_pic %}
+                <img src="{{user.profile.profile_pic.url}}" class="rounded-circle">
+            {% endif %}
+        </div>
+
+        <div class="col-md-7">
+            <h2>{{user.username}}</h2>
+            <br>
+            <h3>Personal informations</h3>
+            <br>
+            <h4>Email : {{user.email}}</h4>
+            <h4>last login: {{user.last_login}}</h4>
+        </div>
+        <div class="col-md-1">
+            <a href="{% url 'edit_profile' %}" type="button" class="btn btn-primary">Edit profile</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

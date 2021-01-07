@@ -1,0 +1,25 @@
+{% extends 'main_blog/base.html' %}
+
+{% block content %}
+</br>
+
+</br>
+{% if user.profile.profile_pic %}
+<img src="{{user.profile.profile_pic.url}}">
+{% endif %}
+</br></br></br>
+
+
+<div>
+    <div class="form-group">
+        <form method="POST">
+            {% csrf_token %}
+            {{form}}
+            </br>
+            </br>
+            <input type="submit" class="btn btn-primary" value="Update profile">
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

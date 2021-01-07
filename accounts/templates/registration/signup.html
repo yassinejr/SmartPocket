@@ -1,7 +1,7 @@
-{% extends 'authentication/base_auth.html' %}
+{% extends 'registration/base_auth.html' %}
 {% load static %}
 
-{% block content%}
+{% block content %}
 </br></br>
 <div class="row">
     <div class="col-md-4"></div>
@@ -9,42 +9,34 @@
         <div class="card-body">
             <div class="card-title">
                 <h4> Register for free</h4>
-                {% csrf_token %}
                 <br>
                 <form action="" method="post">
+                    {% csrf_token %}
                     <div class="form-group">
-                        <input
-                                type="text"
-                                name="username"
-                                class="form-control form-control-sm"
-                                id="usernamefield"
-                                placeholder="username"
-                        >
+                        {{form.username.label}}
+                        {{form.username}}
                     </div>
                     <div class="invalid-feedback" style="display:none">
                         <p></p>
                     </div>
                     <br>
                     <div class="form-group">
-                        <input
-                                type="email"
-                                name="email"
-                                class="form-control form-control-sm"
-                                id="emailfield"
-                                placeholder="email"
-                        >
+                        {{form.email.label}}
+                        {{form.email}}
                     </div>
                     <div class="invalid-email-feedback" style="display:none">
                     </div>
                     <br>
                     <div class="form-group">
-                        <input
-                                type="password"
-                                name="password"
-                                class="form-control form-control-sm"
-                                id="passwordfield"
-                                placeholder="password"
-                        >
+                        {{form.password1.label}}
+                        {{form.password1}}
+                        <br>
+                        <small class="float-right py-3 showpasswordToggle" style="cursor: pointer;">Show</small>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        {{form.password2.label}}
+                        {{form.password2}}
                         <br>
                         <small class="float-right py-3 showpasswordToggle" style="cursor: pointer;">Show</small>
                     </div>
@@ -56,5 +48,5 @@
     </div>
     <div class="col-md-4"></div>
 </div>
-<script src="{% static 'js/register.js' %}"></script>
-{% endblock %}
+
+{% endblock content %}
