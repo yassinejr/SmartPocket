@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('expenses.urls')),
     # path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('accounts.urls'), name='accounts'),
+    path('preferences/', include('user_preferences.urls'), name='preferences'),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
