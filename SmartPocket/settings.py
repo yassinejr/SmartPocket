@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'expenses',
     'validate_email',
+    'user_preferences',
 ]
 
 MIDDLEWARE = [
