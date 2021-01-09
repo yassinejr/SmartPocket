@@ -2,12 +2,25 @@
 {% load static %}
 
 
+
 {% block content %}
-<h1> Expenses list</h1>
-<ul>
-    <li class="">Bought a new carBought a new carBought a new carBought a new carBought a new carBought a new car</li>
-    <li class="">Bought a new car</li>
-    <li class="">Bought a new car</li>
-    <li class="">Bought a new car</li>
-</ul>
+<div class="container mt-4">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="">Expenses</a></li>
+          </ol>
+        </nav>
+    <div class="row">
+        <div class="col-md-10">
+            <h1> Expenses list</h1>
+        </div>
+    <div class="col-md-2">
+        <a href="{% url 'add_expenses'%}" class="btn btn-primary">Add Expense</a>
+    </div>
+    </div>
+
+
+
+</div>
+
 {% endblock %}
