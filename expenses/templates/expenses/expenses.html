@@ -2,12 +2,49 @@
 {% load static %}
 
 
+
 {% block content %}
-<h1> Expenses list</h1>
-<ul>
-    <li class="">Bought a new carBought a new carBought a new carBought a new carBought a new carBought a new car</li>
-    <li class="">Bought a new car</li>
-    <li class="">Bought a new car</li>
-    <li class="">Bought a new car</li>
-</ul>
+<div class="container mt-4">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="">Expenses</a></li>
+          </ol>
+        </nav>
+    <div class="row">
+        <div class="col-md-10">
+            <h1> Expenses list</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Amount</th>
+                        <th>Category</th>
+                        <th>Expense</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                <tbody>
+                    {% for e in expenses_list %}
+                        <tr>
+                            <td>{{ e.amount }}</td>
+                            <td>{{ e.category }}</td>
+                            <td>{{ e.expense_name }}</td>
+                            <td>{{ e.date_added }}</td>
+                            <td>
+                                <a href="{% url 'edit_expense' e.pk %}" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+                                <a href="{% url 'delete_expense' e.pk %}" class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor%}
+                </tbody>
+            </table>
+        </div>
+    <div class="col-md-2">
+        <a href="{% url 'add_expenses'%}" class="btn btn-primary">Add Expense</a>
+    </div>
+    </div>
+
+
+
+</div>
+
 {% endblock %}
