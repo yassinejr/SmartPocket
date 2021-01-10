@@ -20,14 +20,19 @@
                         <th>Category</th>
                         <th>Expense</th>
                         <th>Date</th>
+                        <th>Actions</th>
                     </tr>
                 <tbody>
-                    {% for e in expenses %}
+                    {% for e in expenses_list %}
                         <tr>
                             <td>{{ e.amount }}</td>
                             <td>{{ e.category }}</td>
                             <td>{{ e.expense_name }}</td>
                             <td>{{ e.date_added }}</td>
+                            <td>
+                                <a href="{% url 'edit_expense' e.pk %}" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+                                <a href="{% url 'delete_expense' e.pk %}" class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
+                            </td>
                         </tr>
                     {% endfor%}
                 </tbody>

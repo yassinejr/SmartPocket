@@ -9,11 +9,25 @@ from .forms import *
 
 
 # Create your views here.
+class IndexView(ListView):
+    model = Expenses
+    template_name = 'expenses/expenses.html'
 
-def index(request):
-    expenses = Expenses.objects.filter(user=request.user)
-    context = {'expenses': expenses}
-    return render(request, 'expenses/expenses.html', context)
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the categories
+        context['expenses_list'] = Expenses.objects.filter(user=self.request.user)
+        return context
+
+    def get_queryset(self):
+        return Expenses.objects.order_by('-date_added')
+
+
+# def index(request):
+#     expenses = Expenses.objects.filter(user=request.user)
+#     context = {'expenses': expenses}
+#     return render(request, 'expenses/expenses.html', context)
 
 
 # def add_expense(request):
@@ -48,3 +62,18 @@ class AddExpenseView(LoginRequiredMixin, CreateView):
         kwargs['request'] = self.request
         return kwargs
     success_url = reverse_lazy('expenses')
+
+
+class EditExpenseView(UpdateView):
+    model = Expenses
+    fields = '__all__'
+    template_name = 'expenses/delete_expense.html'
+    success_url = reverse_lazy('expenses')
+
+
+class DeleteExpenseView(DeleteView):
+    model = Expenses
+    template_name = 'expenses/delete_expense.html'
+    success_url = reverse_lazy('expenses')
+
+
