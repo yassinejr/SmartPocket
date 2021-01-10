@@ -10,10 +10,11 @@
     <li class="breadcrumb-item active" aria-current="page">Add Expenses</li>
   </ol>
     </nav>
-
-    <form method="post" action="{% url 'expenses' %}">
-
+    <h1> Add expense</h1>
+    <form method="POST" action="{% url 'add_expenses' %}">
+      {% csrf_token %}
+      {{form.as_p}}
+    <input type="submit" value="Add Expense">
     </form>
 </div>
-<h1> Add expense</h1>
 {% endblock %}

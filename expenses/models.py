@@ -21,7 +21,7 @@ class Expenses(models.Model):
     expense_name = models.CharField(max_length=255)
     amount = models.FloatField()
     category = models.ForeignKey(Category, max_length=255, on_delete=models.CASCADE)
-    date_added = models.DateTimeField(default=now)
+    date_added = models.DateTimeField()
 
     def __str__(self):
         return str(self.expense_name)
