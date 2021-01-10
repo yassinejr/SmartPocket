@@ -11,7 +11,9 @@ from .forms import *
 # Create your views here.
 
 def index(request):
-    return render(request, 'expenses/expenses.html')
+    expenses = Expenses.objects.filter(user=request.user)
+    context = {'expenses': expenses}
+    return render(request, 'expenses/expenses.html', context)
 
 
 # def add_expense(request):
