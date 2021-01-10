@@ -4,8 +4,17 @@
 
 
 {% block content %}
-<form method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Update">
-</form>
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="">Expenses</a></li>
+            <li class="breadcrumb-item"><a href="">Edit Expense</a></li>
+          </ol>
+        </nav>
+    <br>
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Update">
+    </form>
+</div>
 {% endblock %}

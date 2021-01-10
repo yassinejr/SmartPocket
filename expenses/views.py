@@ -12,6 +12,7 @@ from .forms import *
 class IndexView(ListView):
     model = Expenses
     template_name = 'expenses/expenses.html'
+    ordering = ['-date_added']
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -66,8 +67,8 @@ class AddExpenseView(LoginRequiredMixin, CreateView):
 
 class EditExpenseView(UpdateView):
     model = Expenses
-    fields = '__all__'
-    template_name = 'expenses/delete_expense.html'
+    fields = ['expense_name', 'amount', 'category', 'date_added']
+    template_name = 'expenses/edit_expense.html'
     success_url = reverse_lazy('expenses')
 
 
