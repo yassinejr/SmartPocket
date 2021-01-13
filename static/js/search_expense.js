@@ -1,10 +1,11 @@
 const searchfield = document.querySelector("#searchfield")
 const tableoutput =  document.querySelector(".table-output")
+const tablenoresults =  document.querySelector(".no-results")
 const apptable =  document.querySelector(".app-table")
 const pagination =  document.querySelector(".pagination")
 const tbody =  document.getElementById("tbody")
 
-
+tablenoresults.style.display = "none";
 tableoutput.style.display = "none";
 apptable.style.display = "block";
 pagination.style.display = "block";
@@ -27,7 +28,7 @@ searchfield.addEventListener('keyup', (e) => {
             pagination.style.display = "none";
 
         if (data.length===0){
-            tableoutput.innerHTML = "No results"
+            tablenoresults.innerHTML = `<p> No results </p>`
             console.clear()
         }else{
 
@@ -49,6 +50,7 @@ searchfield.addEventListener('keyup', (e) => {
         }
         });
     }else{
+        tablenoresults.style.display = "block";
         tableoutput.style.display = "none";
         apptable.style.display = "block";
         pagination.style.display = "block";
