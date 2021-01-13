@@ -97,14 +97,16 @@ def search_expense(request):
             category__category_name__icontains=str(searched_str),
             user=request.user).select_related('category_name')
 
-
-        # cat = Category.objects.filter(category_name=searched_str, user=request.user).values()
-
         e = list(expenses.values('category_id'))
-        # print(e[0])
-        ex = e[0]
+        # print(type(e))
+        try:
+            ex = e[0]
+            # print(ex)
+        except IndexError:
+            ex = {}
+
         cat_id = ex.get('category_id')
-        print(ex.get('category_id'))
+        # print(ex.get('category_id'))
         # from operator import itemgetter
         # x = (map(itemgetter('category_id'),e))
         # print(x)
