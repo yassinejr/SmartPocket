@@ -1,9 +1,12 @@
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+import json
+from django.http import JsonResponse
 
 from .forms import *
 
@@ -13,6 +16,7 @@ class IndexView(ListView):
     model = Expenses
     template_name = 'expenses/expenses.html'
     ordering = ['-date_added']
+    paginate_by = 3
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -62,6 +66,7 @@ class AddExpenseView(LoginRequiredMixin, CreateView):
         kwargs = super(AddExpenseView, self).get_form_kwargs()
         kwargs['request'] = self.request
         return kwargs
+
     success_url = reverse_lazy('expenses')
 
 
@@ -78,3 +83,42 @@ class DeleteExpenseView(DeleteView):
     success_url = reverse_lazy('expenses')
 
 
+def search_expense(request):
+    if request.method == 'POST':
+        searched_str = json.loads(request.body).get('searchedText')
+
+        expenses = Expenses.objects.filter(
+            amount__istartswith=searched_str,
+            user=request.user) | Expenses.objects.filter(
+            expense_name__icontains=searched_str,
+            user=request.user) | Expenses.objects.filter(
+            date_added__istartswith=searched_str,
+            user=request.user) | Expenses.objects.filter(
+            category__category_name__icontains=str(searched_str),
+            user=request.user).select_related('category_name')
+
+        e = list(expenses.values('category_id'))
+        # print(type(e))
+        try:
+            ex = e[0]
+            # print(ex)
+        except IndexError:
+            ex = {}
+
+        cat_id = ex.get('category_id')
+        # print(ex.get('category_id'))
+        # from operator import itemgetter
+        # x = (map(itemgetter('category_id'),e))
+        # print(x)
+        # for
+        # print(list(expenses[0]["category_id"]))
+        #don't touch
+        data = list(expenses.values())
+        # print(data)
+        res =[]
+        for c in data:
+            c["category_name"] = str(Category.objects.get(id=cat_id))
+            res.append(c)
+            print(res)
+
+        return JsonResponse(res, safe=False)

@@ -10,41 +10,82 @@
             <li class="breadcrumb-item"><a href="">Expenses</a></li>
           </ol>
         </nav>
-    <div class="row">
-        <div class="col-md-10">
-            <h1> Expenses list</h1>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Amount</th>
-                        <th>Category</th>
-                        <th>Expense</th>
-                        <th>Date</th>
-                        <th>Actions</th>
-                    </tr>
-                <tbody>
-                    {% for e in expenses_list %}
-                        <tr>
-                            <td>{{ e.amount }}</td>
-                            <td>{{ e.category }}</td>
-                            <td>{{ e.expense_name }}</td>
-                            <td>{{ e.date_added }}</td>
-                            <td>
-                                <a href="{% url 'edit_expense' e.pk %}" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
-                                <a href="{% url 'delete_expense' e.pk %}" class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                    {% endfor%}
-                </tbody>
-            </table>
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4">
+                <form class="d-flex">
+                    <input class="form-control me-2" id="searchfield" type="search" placeholder="Search" aria-label="Search">
+                    <button id="search" class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
         </div>
-    <div class="col-md-2">
-        <a href="{% url 'add_expenses'%}" class="btn btn-primary">Add Expense</a>
-    </div>
-    </div>
+    <hr>
+        <div class="row">
+            <div class="col-md-10">
+                <div class="app-table">
+                    <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Amount</th>
+                            <th>Category</th>
+                            <th>Expense</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    <tbody>
+                        {% for e in page_obj %}
+                            <tr>
+                                <td>{{ e.amount }}</td>
+                                <td>{{ e.category }}</td>
+                                <td>{{ e.expense_name }}</td>
+                                <td>{{ e.date_added }}</td>
+                                <td>
+                                    <a href="{% url 'edit_expense' e.pk %}" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+                                    <a href="{% url 'delete_expense' e.pk %}" class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor%}
+                    </tbody>
+                </table>
+                </div>
+                <div class="table-output">
+                    <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Amount</th>
+                            <th>Category</th>
+                            <th>Expense</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    <tbody class="tbody">
 
+                    </tbody>
+                </table>
+                </div>
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
 
+                        <span class="current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        </span>
 
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">next</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <a href="{% url 'add_expenses'%}" class="btn btn-primary"><i class="fa fa-plus"></i> Add Expense</a>
+            </div>
+        </div>
+    <script src="{% static 'js/search_expense.js' %}"></script>
 </div>
 
 {% endblock %}
