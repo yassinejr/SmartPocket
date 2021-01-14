@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'expenses',
     'validate_email',
     'user_preferences',
+    'incomes',
+    'dashboard',
 ]
 
 MIDDLEWARE = [

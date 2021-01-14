@@ -1,0 +1,20 @@
+{% extends 'incomes/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'incomes'%}">Incomes</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Add Add Income</li>
+  </ol>
+    </nav>
+    <h1> Add income</h1>
+    <form method="POST" action="{% url 'add_income' %}">
+      {% csrf_token %}
+      {{form.as_p}}
+    <input type="submit" value="Add Expense">
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'incomes/base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="">Incomes</a></li>
+            <li class="breadcrumb-item"><a href="">Delete Income</a></li>
+          </ol>
+        </nav>
+    <br>
+    <form method="post">{% csrf_token %}
+        <div class="alert alert-danger" role="alert">
+            Are you sure you want to delete "{{ object }}"?
+        </div>
+        <input type="submit" class="btn btn-danger" value="Confirm">
+        <a href="{% url 'expenses' %}" class="btn btn-secondary">Return</a>
+    </form>
+</div>
+
+{% endblock %}
