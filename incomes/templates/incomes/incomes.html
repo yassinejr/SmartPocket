@@ -1,0 +1,93 @@
+{% extends 'incomes/base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<div class="container mt-4">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="">Incomes</a></li>
+          </ol>
+        </nav>
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4">
+                <form class="d-flex">
+                    <input class="form-control me-2" id="searchfield" type="search" placeholder="Search by name, category, date .." aria-label="Search">
+                </form>
+            </div>
+        </div>
+    <hr>
+        <div class="row">
+            <div class="col-md-10">
+                <div class="app-table">
+                    <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Amount</th>
+                            <th>Source</th>
+                            <th>Income</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    <tbody>
+                        {% for i in page_obj %}
+                            <tr>
+                                <td>{{ i.amount }}</td>
+                                <td>{{ i.source }}</td>
+                                <td>{{ i.income_name }}</td>
+                                <td>{{ i.date_added }}</td>
+                                <td>
+                                    <a href="{% url 'edit_income' i.pk %}" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+                                    <a href="{% url 'delete_income' i.pk %}" class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor%}
+                    </tbody>
+                </table>
+                </div>
+                <div class="table-output">
+                    <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Amount</th>
+                            <th>Source</th>
+                            <th>Expense</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    <tbody id="tbody">
+
+                    </tbody>
+                </table>
+                </div>
+                <div class="no-results">
+
+                </div>
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        </span>
+
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">next</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <a href="{% url 'add_income'%}" class="btn btn-primary"><i class="fa fa-plus"></i> Add Income</a>
+            </div>
+        </div>
+    <script src="{% static 'js/search_expense.js' %}"></script>
+</div>
+
+{% endblock %}
