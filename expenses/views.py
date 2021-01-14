@@ -7,7 +7,7 @@ from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 import json
 from django.http import JsonResponse
-
+from django.apps import apps
 from .forms import *
 
 
@@ -23,6 +23,8 @@ class IndexView(ListView):
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the categories
         context['expenses_list'] = Expenses.objects.filter(user=self.request.user)
+        UserPreferences = apps.get_model('user_preferences', 'UserPreferences')
+        context['user_preferences'] = UserPreferences.objects.filter(user=self.request.user)
         return context
 
     def get_queryset(self):

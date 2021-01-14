@@ -25,7 +25,11 @@
                     <table class="table">
                     <thead>
                         <tr>
-                            <th>Amount</th>
+                            {% for e in user_preferences %}
+                                {% if e.currency%}
+                                    <th>Amount [{{e.currency}}]</th>
+                                {% endif %}
+                            {% endfor %}
                             <th>Category</th>
                             <th>Expense</th>
                             <th>Date</th>
